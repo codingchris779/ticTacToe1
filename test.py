@@ -1,46 +1,47 @@
-class TicTacToeBrain :
+from oWinner import oWin
+from xWinner import xWin
 
+xPos = []
+oPos = []
+open = [1,2,3,4,5,6,7,8,9]
+class TicTacToeBrain :
+    xPos = []
+    oPos = []
+    open = [1,2,3,4,5,6,7,8,9]
     def __init__(self, player = "x") :
         self._squares = {}
         self._copySquares = {}
-        # self._winningCombos = (
-        # [0, 1, 2], [3, 4, 5], [6, 7, 8],
-        # [0, 3, 6], [1, 4, 7], [2, 5, 8],
-        # [0, 4, 8], [2, 4, 6])
 
-    # def createBoard(self) :
-    #     for i in range(9) :
-    #         # *** use a single character, ... easier to print
-    #         self._squares[i] = "."
-    #     print(self._squares)
-
-
-    def getAvailableMoves(self) :
-        self._availableMoves = []
-        for i in open :
-            # *** see above
-            self._availableMoves.append(i)
-        return self._availableMoves
+    def getAvailableMoves(self,open) :
+        return open
 
     def makeMove(self, position, player) :
-        self._squares[position] = player
-        self.showBoard()
-
-    def complete(self) :
+        open.remove(position)
+        if player == 'x':
+            xPos.append(position)
+        else:
+            oPos.append(position)
+    def undoMove(self, position, player) :
+        open.append(position)
+        if player == 'x':
+            xPos.remove(position)
+        else:
+            oPos.remove(position)
+    def complete(self,open) :
         # *** see above
-        if "." not in self._squares.values() :
+        if len(open)==0:
             return True
-        if self.getWinner() != None :
+        if self.getWinner(xPos,oPos,open) != None :
             return True
         return False
 
-    def getWinner(self) :
+    def getWinner(self,xPos,oPos,open) :
         if xWin(xPos):
             return Player
         if oWin(oPos):
             return player
         # *** see above
-        if "." not in self._squares.values() :
+        if len(open) == 0:
             return "tie"
         return None
 
@@ -49,33 +50,31 @@ class TicTacToeBrain :
             return "o"
         return "x"
 
-    def minimax(self, player, depth = 0) :
+    def minimax(self, player ,open,xPos,oPos, depth = 0):
         if player == "o":
             best = -30
         else:
             best = 30
-        if self.complete() :
-            if self.getWinner() == "x" :
+        if self.complete(open) :
+            if self.getWinner(open,xPos,oPos) == "x" :
                 # *** don't do this, you may still need the position to try other moves
                 # self._squares = self._copySquares
                 # *** value should be closer to zero for greater depth!
                 # *** expect tuple return value
                 return -30 + depth, None
-            elif self.getWinner() == "tie" :
+            elif self.getWinner(open,xPos,oPos) == "tie" :
                 # self._squares = self._copySquares
                 # *** expect tuple return value
                 return 0, None
-            elif self.getWinner() == "o" :
+            elif self.getWinner(open,xPos,oPos) == "o" :
                 # self._squares = self._copySquares
                 # *** value should be closer to zero for greater depth!
                 # *** expect tuple return value
                 return 30 - depth, None
             # *** Execution can never get here
             # best = None
-        for move in self.getAvailableMoves() :
-            # *** don't increase depth in each iteration, instead pass depth+1 to
-            #    the recursive call
-            # depth += 1
+        for move in self.getAvailableMoves(open) :
+
             self.makeMove(move, player)
             # *** pass depth+1, no need for passing `node` nor `first`.
             # *** expect tuple return value
@@ -91,19 +90,14 @@ class TicTacToeBrain :
                 if val < best :
                     # *** Also keep track of the actual move
                     best, bestMove = val, move
-            # *** don't interrupt the loop here!
-            # return best
-            # *** this is dead code:
-            # print()
-            # print()
-        # *** Also keep track of the actual move
+
         return best, bestMove
 
     def printCopy(self) :
         print(self._copySquares)
 game = TicTacToeBrain()
-game.createBoard()
+
 game.makeMove(4, "o")
 game.makeMove(3, "x")
-val, bestMove = game.minimax("o")
+val, bestMove = game.minimax("o",open,xPos,oPos)
 print ("best move", bestMove )
