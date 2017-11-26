@@ -8,19 +8,18 @@ class TicTacToeBrain :
         # [0, 3, 6], [1, 4, 7], [2, 5, 8],
         # [0, 4, 8], [2, 4, 6])
 
-    def createBoard(self) :
-        for i in range(9) :
-            # *** use a single character, ... easier to print
-            self._squares[i] = "."
-        print(self._squares)
+    # def createBoard(self) :
+    #     for i in range(9) :
+    #         # *** use a single character, ... easier to print
+    #         self._squares[i] = "."
+    #     print(self._squares)
 
 
     def getAvailableMoves(self) :
         self._availableMoves = []
-        for i in range(9) :
+        for i in open :
             # *** see above
-            if self._squares[i] == "." :
-                self._availableMoves.append(i)
+            self._availableMoves.append(i)
         return self._availableMoves
 
     def makeMove(self, position, player) :
@@ -36,10 +35,10 @@ class TicTacToeBrain :
         return False
 
     def getWinner(self) :
-        for player in ("x", "o") :
-            for combos in self._winningCombos :
-                if self._squares[combos[0]] == player and self._squares[combos[1]] == player and self._squares[combos[2]] == player :
-                    return player
+        if xWin(xPos):
+            return Player
+        if oWin(oPos):
+            return player
         # *** see above
         if "." not in self._squares.values() :
             return "tie"
@@ -50,27 +49,18 @@ class TicTacToeBrain :
             return "o"
         return "x"
 
-    # *** no need for `node` argument, nor `first`
-    # *** use `self` instead of `node` in all this method
     def minimax(self, player, depth = 0) :
-        # *** not needed
-        # if first :
-            # best = 0
-            # *** not needed
-            # self._copySquares = deepcopy(self._squares)
-        # *** always start with initilisation of `best`, but with worst possible value
-        #     for this player
         if player == "o":
-            best = -10
+            best = -30
         else:
-            best = 10
+            best = 30
         if self.complete() :
             if self.getWinner() == "x" :
                 # *** don't do this, you may still need the position to try other moves
                 # self._squares = self._copySquares
                 # *** value should be closer to zero for greater depth!
                 # *** expect tuple return value
-                return -10 + depth, None
+                return -30 + depth, None
             elif self.getWinner() == "tie" :
                 # self._squares = self._copySquares
                 # *** expect tuple return value
@@ -79,7 +69,7 @@ class TicTacToeBrain :
                 # self._squares = self._copySquares
                 # *** value should be closer to zero for greater depth!
                 # *** expect tuple return value
-                return 10 - depth, None
+                return 30 - depth, None
             # *** Execution can never get here
             # best = None
         for move in self.getAvailableMoves() :
