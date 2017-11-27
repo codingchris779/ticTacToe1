@@ -9,7 +9,6 @@ def xWin(xPos):
         if  x in xPos and x + y in xPos and x + (y*2) in xPos:
             #print "o wins yay"
             x+=2002002
-            time.sleep(2)
             #print"win"
             return True
             break
@@ -22,9 +21,7 @@ def xWin(xPos):
         if x in range(1,4) or x in range(10,14) or x in range(19,24):
             if  x in xPos and x + y in xPos and x + (y*2) in xPos:
                 #print "o wins yay"
-                x+=2002002
-                time.sleep(2)
-
+                x+=2002
                 return True
                 break
             else:
@@ -39,7 +36,6 @@ def xWin(xPos):
     while x in range(1, 28):
         if  x in xPos and x + y in xPos and x + (y*2) in xPos:
             #print "o wins yay"
-            time.sleep(2)
             #print"win"
             x+=2002002
             return True
@@ -50,7 +46,6 @@ def xWin(xPos):
     while x in range(1, 28):
         if  x in xPos and x + y in xPos and x + (y*2) in xPos:
             #print "o wins yay"
-            time.sleep(2)
             x+=2002002
             return True
         else:
@@ -59,8 +54,6 @@ def xWin(xPos):
     y= 4
     while x in range(1, 28):
         if  x in xPos and x + y in xPos and x + (y*2) in xPos:
-            #print "o wins yay"
-            time.sleep(2)
             x+=2002002
             return True
         else:

@@ -96,8 +96,11 @@ class TicTacToeBrain :
     def printCopy(self) :
         print(self._copySquares)
 game = TicTacToeBrain()
-
+game.makeMove(7, "o")
 game.makeMove(4, "o")
+game.makeMove(6, "o")
 game.makeMove(3, "x")
+game.makeMove(1, "x")
+game.makeMove(5, "x")
 val, bestMove = game.minimax("o",open,xPos,oPos)
 print ("best move", bestMove )
