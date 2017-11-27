@@ -37,9 +37,9 @@ class TicTacToeBrain :
 
     def getWinner(self,xPos,oPos,open) :
         if xWin(xPos):
-            return Player
+            return 'x'
         if oWin(oPos):
-            return player
+            return 'o'
         # *** see above
         if len(open) == 0:
             return "tie"
@@ -50,7 +50,7 @@ class TicTacToeBrain :
             return "o"
         return "x"
 
-    def minimax(self, player ,open,xPos,oPos, depth = 0):
+    def minimax(self, player,open,xPos,oPos, depth = 0):
         if player == "o":
             best = -30
         else:
@@ -74,14 +74,14 @@ class TicTacToeBrain :
             # *** Execution can never get here
             # best = None
         for move in self.getAvailableMoves(open) :
-
+            print (self.getAvailableMoves(open))
+            print (xPos)
+            print (oPos)
             self.makeMove(move, player)
-            # *** pass depth+1, no need for passing `node` nor `first`.
-            # *** expect tuple return value
-            val, _ = self.minimax(self.getEnemyPlayer(player), depth+1)
+            val, _ = self.minimax(self.getEnemyPlayer(player),open,xPos,oPos, depth+1)
             print(val)
             # *** undo last move
-            self.makeMove(move, ".")
+            self.undoMove(move, player)
             if player == "o" :
                 if val > best :
                     # *** Also keep track of the actual move
