@@ -1,4 +1,3 @@
-import time
 def oWin(oPos):
 
     # Checks for across matches
@@ -9,7 +8,7 @@ def oWin(oPos):
         if  x in oPos and x + y in oPos and x + (y*2) in oPos:
             #print "o wins yay"
             x+=2002002
-            time.sleep(2)
+
             #print"win"
             return True
             break
@@ -23,7 +22,7 @@ def oWin(oPos):
             if  x in oPos and x + y in oPos and x + (y*2) in oPos:
                 #print "o wins yay"
                 x+=2002002
-                time.sleep(2)
+
 
                 return True
 
@@ -39,7 +38,7 @@ def oWin(oPos):
     while x in range(1, 28):
         if  x in oPos and x + y in oPos and x + (y*2) in oPos:
             #print "o wins yay"
-            time.sleep(2)
+
             #print"win"
             x+=2002002
             return True
@@ -50,7 +49,7 @@ def oWin(oPos):
     while x in range(1, 28):
         if  x in oPos and x + y in oPos and x + (y*2) in oPos:
             #print "o wins yay"
-            time.sleep(2)
+
             x+=2002002
             return True
         else:
@@ -60,7 +59,7 @@ def oWin(oPos):
     while x in range(1, 28):
         if  x in oPos and x + y in oPos and x + (y*2) in oPos:
             #print "o wins yay"
-            time.sleep(2)
+
             x+=2002002
             return True
         else:

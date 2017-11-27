@@ -72,14 +72,14 @@ class TicTacToeBrain :
                 # *** expect tuple return value
                 return 30 - depth, None
             # *** Execution can never get here
-            # best = None
+        bestMove = None
         for move in self.getAvailableMoves(open) :
-            print (self.getAvailableMoves(open))
-            print (xPos)
-            print (oPos)
+            # print (self.getAvailableMoves(open))
+            # print (xPos)
+            # print (oPos)
             self.makeMove(move, player)
             val, _ = self.minimax(self.getEnemyPlayer(player),open,xPos,oPos, depth+1)
-            print(val)
+            #print(val)
             # *** undo last move
             self.undoMove(move, player)
             if player == "o" :
@@ -90,7 +90,7 @@ class TicTacToeBrain :
                 if val < best :
                     # *** Also keep track of the actual move
                     best, bestMove = val, move
-
+        bestMove = bestMove
         return best, bestMove
 
     def printCopy(self) :
