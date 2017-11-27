@@ -24,7 +24,7 @@ user = 'x'
 
 clock = pygame.time.Clock()
 gameOver = False
-tictac = pygame.image.load('tictactoe.png')
+tictac = pygame.image.load('tic tac toe 2.JPG')
 oWon = pygame.image.load('oWon.JPG')
 xWon = pygame.image.load('xWon.JPG')
 
@@ -42,18 +42,18 @@ x =  (display_width * 0.045)
 y = (display_height * 0.08)
 def xDisplay(xPos,green):
     for number in xPos:
-        pygame.draw.rect(gameDisplay, green,(posButtons[number][0],posButtons[number][1],100,50))
+        pygame.draw.rect(gameDisplay, green,(posButtons[number][0],posButtons[number][1],55,55))
 def oDisplay(oPos,red):
     for number in oPos:
-        pygame.draw.rect(gameDisplay, red,(posButtons[number][0],posButtons[number][1],100,50))
+        pygame.draw.rect(gameDisplay, red,(posButtons[number][0],posButtons[number][1],55,55))
 
 
 black = (0,0,0)
 
 pygame.init()
 #defines list of the button positions upper left in xy cordinates
-posButtons=[[],[56,679],[170,680],[360,679],[72,617],[188,621],[350,611],[87,557],[191,557],[339,544],[57,440],[161,438],[360,435],[73,378],[177,370],[354,375],[86,315],[184,306],
-            [346,303],[56,196],[164,200],[358,198],[71,127],[179,131],[352,131],[82,65],[189,74],[342,71]]
+posButtons=[[],[157,79],[208,79],[260,79],[157,131],[208,131],[259,131],[157,186],[208,186],[259,186],[321,188],[373,188],[421,188],[321,240],[373,240],[421,240],
+[321,292],[373,292],[421,292],[483,296],[535,296],[588,296],[483,347],[535,347],[588,347],[483,399],[535,399],[588,399]]
 
 open = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27]
 xPos=[]
@@ -87,7 +87,7 @@ def boardButtons(open,black,white):
 
     click = pygame.mouse.get_pressed()
     for number in open:
-        index = button('',posButtons[number][0],posButtons[number][1],100,60,white,black,number)
+        index = button('',posButtons[number][0],posButtons[number][1],55,55,white,black,number)
 
 
 
@@ -96,8 +96,11 @@ def boardButtons(open,black,white):
 
 quit = False
 while not quit:
+    click = pygame.mouse.get_pressed()
     if gameOver==False:
         for event in pygame.event.get():
+            if click[0] == 1:
+                print (event)
 
             if event.type == pygame.QUIT:
                 gameOver=True
@@ -105,7 +108,6 @@ while not quit:
         gameDisplay.fill(white)
         image(x,y,tictac)
         click = pygame.mouse.get_pressed()
-
         boardButtons(open,black,white)
         xDisplay(xPos,green)
         oDisplay(oPos,red)
