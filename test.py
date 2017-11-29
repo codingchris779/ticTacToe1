@@ -1,5 +1,6 @@
-from oWinner import oWin
+from oWinner import won
 from xWinner import xWin
+import multiprocessing
 
 xPos = []
 oPos = []
@@ -36,9 +37,9 @@ class TicTacToeBrain :
         return False
 
     def getWinner(self,xPos,oPos,open) :
-        if xWin(xPos):
+        if won(xPos):
             return 'x'
-        if oWin(oPos):
+        if won(oPos):
             return 'o'
         # *** see above
         if len(open) == 0:
@@ -57,26 +58,17 @@ class TicTacToeBrain :
             best = 30
         if self.complete(open) :
             if self.getWinner(open,xPos,oPos) == "x" :
-                # *** don't do this, you may still need the position to try other moves
-                # self._squares = self._copySquares
-                # *** value should be closer to zero for greater depth!
-                # *** expect tuple return value
+
                 return -30 + depth, None
             elif self.getWinner(open,xPos,oPos) == "tie" :
-                # self._squares = self._copySquares
-                # *** expect tuple return value
+
                 return 0, None
             elif self.getWinner(open,xPos,oPos) == "o" :
-                # self._squares = self._copySquares
-                # *** value should be closer to zero for greater depth!
-                # *** expect tuple return value
+
                 return 30 - depth, None
-            # *** Execution can never get here
+
         bestMove = None
         for move in self.getAvailableMoves(open) :
-            # print (self.getAvailableMoves(open))
-            # print (xPos)
-            # print (oPos)
             self.makeMove(move, player)
             val, _ = self.minimax(self.getEnemyPlayer(player),open,xPos,oPos, depth+1)
             #print(val)
@@ -96,11 +88,11 @@ class TicTacToeBrain :
     def printCopy(self) :
         print(self._copySquares)
 game = TicTacToeBrain()
-game.makeMove(7, "o")
-game.makeMove(4, "o")
-game.makeMove(6, "o")
-game.makeMove(3, "x")
-game.makeMove(1, "x")
-game.makeMove(5, "x")
-val, bestMove = game.minimax("o",open,xPos,oPos)
-print ("best move", bestMove )
+# val, bestMove = game.minimax("o",open,xPos,oPos)
+# print ("best move", bestMove )
+while game.complete:
+    userInput = int(input())
+    game.makeMove(userInput, 'x')
+    val, bestMove = game.minimax("o",open,xPos,oPos)
+    game.makeMove(bestMove, 'o')
+    print (bestMove)
