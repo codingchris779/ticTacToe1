@@ -5,6 +5,7 @@ from xWinner import xWin
 from oWinner import oWin
 from position import all
 from outputboard import go
+from test import getComputerMove
 import os
 clear = lambda: os.system('cls')
 clear()
@@ -98,23 +99,29 @@ def boardButtons(open,black,white):
 quit = False
 while not quit:
     if gameOver==False:
-        for event in pygame.event.get():
+        if user == 'x':
+            for event in pygame.event.get():
 
-            if event.type == pygame.QUIT:
-                gameOver=True
+                if event.type == pygame.QUIT:
+                    gameOver=True
 
-        gameDisplay.fill(white)
-        image(x,y,tictac)
-        click = pygame.mouse.get_pressed()
+            gameDisplay.fill(white)
+            image(x,y,tictac)
+            click = pygame.mouse.get_pressed()
 
-        boardButtons(open,black,white)
-        xDisplay(xPos,green)
-        oDisplay(oPos,red)
-        moves=0
-        quit = False
-        gameOver = isGameOver(moves,xPos,oPos)
-        pygame.display.update()
-        clock.tick(60)
+            boardButtons(open,black,white)
+            xDisplay(xPos,green)
+            oDisplay(oPos,red)
+            moves=0
+            quit = False
+            gameOver = isGameOver(moves,xPos,oPos)
+            pygame.display.update()
+            clock.tick(60)
+        else:
+            move = getComputerMove(open,oPos,xPos)
+            user = 'x'
+            open.remove(move)
+            oPos.append(move)
     else:
         for event in pygame.event.get():
 
