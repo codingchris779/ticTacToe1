@@ -4,6 +4,7 @@ from xWinner import xWin
 from oWinner import oWin
 from position import all
 from outputboard import go
+from test import getComputerMove
 import os
 clear = lambda: os.system('cls')
 clear()
@@ -129,9 +130,6 @@ while not quit:
             oDisplay(oPos,red)
             gameOver = isGameOver(moves,xPos,oPos)
             user = 'x'
-            print (open)
-            print (xPos)
-            print (oPos)
 
     else:
         for event in pygame.event.get():
