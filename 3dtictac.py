@@ -96,26 +96,43 @@ def boardButtons(open,black,white):
 
 quit = False
 while not quit:
-    click = pygame.mouse.get_pressed()
     if gameOver==False:
         for event in pygame.event.get():
-            if click[0] == 1:
-                print (event)
 
             if event.type == pygame.QUIT:
                 gameOver=True
+        if user == 'x':
 
-        gameDisplay.fill(white)
-        image(x,y,tictac)
-        click = pygame.mouse.get_pressed()
-        boardButtons(open,black,white)
-        xDisplay(xPos,green)
-        oDisplay(oPos,red)
-        moves=0
-        quit = False
-        gameOver = isGameOver(moves,xPos,oPos)
-        pygame.display.update()
-        clock.tick(60)
+
+            gameDisplay.fill(white)
+            image(x,y,tictac)
+            click = pygame.mouse.get_pressed()
+
+            boardButtons(open,black,white)
+            xDisplay(xPos,green)
+            oDisplay(oPos,red)
+            moves=0
+            quit = False
+            gameOver = isGameOver(moves,xPos,oPos)
+            pygame.display.update()
+            clock.tick(60)
+        else:
+            move = getComputerMove(open,oPos,xPos)
+            open.remove(move)
+            oPos.append(move)
+            try:
+                xPos.remove(move)
+            except:
+                pass
+
+            xDisplay(xPos,green)
+            oDisplay(oPos,red)
+            gameOver = isGameOver(moves,xPos,oPos)
+            user = 'x'
+            print (open)
+            print (xPos)
+            print (oPos)
+
     else:
         for event in pygame.event.get():
 
@@ -123,8 +140,10 @@ while not quit:
                 gameOver=True
         if xWin(xPos) == True:
             image(x,y,xWon)
+            time.sleep(1)
         else:
             image(x,y,oWon)
+            time.sleep(1)
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:
